@@ -14,6 +14,7 @@ Builder.load_string('''
 
     Button:
         text: 'Detect'
+        id: detect_btn
         size_hint_y: None
         font_size: 40
         pos_hint: {'top':.5,'right':.5}
@@ -31,15 +32,25 @@ Builder.load_string('''
         color: 'white'
         background_color: 'purple'
         on_press: app.close()
+
 ''')
 
 class Container(BoxLayout):
-    
+
     def detect(self):
+        camera_ports = [1, 0, 2, 3, 99, 100]
         
-        cap = cv2.VideoCapture(0)
-        detector = ObjectDetector(cap)
-        detector.detect()
+        try:          
+            for port in camera_ports:
+                try:
+                    cap = cv2.VideoCapture(port)
+                    detector = ObjectDetector(cap)
+                    detector.detect()
+                    break
+                except Exception as e:
+                    print(f'No Camera at {port}')
+        except:
+            self.ids['detect_btn'].text = 'Camera Not Found'
 
 
 class Detection(App):

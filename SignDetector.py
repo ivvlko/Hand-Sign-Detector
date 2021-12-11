@@ -6,13 +6,6 @@ import os
 
 from time import sleep
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'    
-tf.get_logger().setLevel('ERROR')   
-
-gpus = tf.config.experimental.list_physical_devices('GPU')
-for gpu in gpus:
-    tf.config.experimental.set_memory_growth(gpu, True)
-    
 from object_detection.utils import label_map_util
 from AudioPlayer import AudioPlayer
 
@@ -22,7 +15,7 @@ warnings.filterwarnings('ignore')
 
 class SignDetector:
 
-    PATH_TO_SAVED_MODEL = os.getcwd() + '\\exported-models\\resnet\\saved_model'
+    PATH_TO_SAVED_MODEL = os.getcwd() + '\\exported-models\\resnet-1.0.3\\saved_model'
     category_index = label_map_util.create_category_index_from_labelmap(os.getcwd() + '\\exported-models\\label_map.pbtxt', use_display_name=True)
     detect_fn = tf.saved_model.load(PATH_TO_SAVED_MODEL)
 
@@ -57,9 +50,10 @@ class SignDetector:
 
     def has_detected_sign(self, labels, score):
         """
-        80% certainty to activate player. It's detecting signs all the time, just low probability
+        At least 95% certainty required to activate player. 
+        It's detecting signs all the time, just low probability
         """
-        if score[0] >= 0.8:
+        if score[0] >= 0.95:
             self.activate_player(labels[0])
         return
     

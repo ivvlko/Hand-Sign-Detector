@@ -14,7 +14,7 @@ Start Player            |  Stop Player | Next Song | Previous Song
 
 # How to run it
 
-Windows executable [here](https://drive.google.com/drive/folders/1ctF42o-dkr8gw6e0BR1HRfqkagWLzSwn?usp=sharing). 
+Windows executable [here](https://drive.google.com/drive/folders/1W-WCQ4Zu-iNj5YhTvZywDKCXcjgGIyw2?usp=sharing). 
 
 Steps to run the project locally:
 
